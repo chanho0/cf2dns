@@ -4,6 +4,8 @@ on:
   push:
     branches: 
       - master
+  repository_dispatch:
+    types: cf
   schedule:
     - cron: '1-59/15 * * * *'
 
@@ -26,3 +28,11 @@ jobs:
           SECRETID: ${{ secrets.SECRETID }}
           SECRETKEY: ${{ secrets.SECRETKEY }}
         run: python cf2dns_actions.py
+      #清除过期记录
+      - name: 'Delete older workflow runs and artifacts'
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 20
