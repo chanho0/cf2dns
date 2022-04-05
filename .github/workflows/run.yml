@@ -6,8 +6,8 @@ on:
       - master
   repository_dispatch:
     types: cf
-  schedule:
-    - cron: '1-59/15 * * * *'
+  ##schedule:
+    #- cron: '1-59/15 * * * *'
 
 jobs:
   build:
